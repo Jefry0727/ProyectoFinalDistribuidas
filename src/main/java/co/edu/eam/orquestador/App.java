@@ -10,6 +10,7 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import co.edu.eam.dto.ClienteCRM;
 import co.edu.eam.model.Prueba;
 
 /**
@@ -21,33 +22,25 @@ public class App
     public static void main( String[] args )
     {
     	App obj = new App();
-		obj.run2();
+		obj.run();
     }
     
     private void run() {
-		ObjectMapper mapper = new ObjectMapper();
 
 		Prueba staff = createDummyObject();
 
-		try {
 			// Convert object to JSON string and save into a file directly
 			//mapper.writeValue(new File("D:\\staff.json"), staff);
-
+			String jsonInString = "";
 			// Convert object to JSON string
-			String jsonInString = mapper.writeValueAsString(staff);
+			//String jsonInString = mapper.writeValueAsString(staff);
 			System.out.println(jsonInString);
 
 			// Convert object to JSON string and pretty print
-			jsonInString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(staff);
+			jsonInString = createObjectToJson(staff);
 			System.out.println(jsonInString);
 
-		} catch (JsonGenerationException e) {
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		
 	}
 
 	private Prueba createDummyObject() {
@@ -95,6 +88,35 @@ public class App
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	
+public String createObjectToJson(Object objeto){
+		
+		ObjectMapper mapper = new ObjectMapper();
+
+		try {
+			String jsonInString = "";
+			
+			// Convert object to JSON string
+			//String jsonInString = mapper.writeValueAsString(objeto);
+			//System.out.println(jsonInString);
+
+			// Convert object to JSON string and pretty print
+			jsonInString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(objeto);
+			System.out.println(jsonInString);
+			
+			return jsonInString;
+
+		} catch (JsonGenerationException e) {
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+		
 	}
 
 }

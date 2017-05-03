@@ -9,17 +9,27 @@ import java.net.MalformedURLException;
 import org.jboss.resteasy.client.ClientRequest;
 import org.jboss.resteasy.client.ClientResponse;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import co.edu.eam.dto.ClienteCRM;
+import co.edu.eam.model.Prueba;
+
 public class RestCliente {
 
-	public void servicioCrearCliente() {
+	public void servicioCrearCliente(ClienteCRM objeto) {
 
 		try {
 
 			ClientRequest request = new ClientRequest("http://104.155.149.197:8090/tienda/espocrm/createCustomer");
 			request.accept("application/json");
-
-			String input = "{\"qty\":100,\"name\":\"iPad 4\"}";
+			
+			
+			String input = createObjectToJson(objeto);
+			
 			request.body("application/json", input);
+			
 
 			ClientResponse<String> response = request.post(String.class);
 
@@ -50,6 +60,35 @@ public class RestCliente {
 
 		}
 
+	}
+	
+	
+	public String createObjectToJson(Object objeto){
+		
+		ObjectMapper mapper = new ObjectMapper();
+
+		try {
+			String jsonInString = "";
+			
+			// Convert object to JSON string
+			//String jsonInString = mapper.writeValueAsString(objeto);
+			//System.out.println(jsonInString);
+
+			// Convert object to JSON string and pretty print
+			jsonInString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(objeto);
+			System.out.println(jsonInString);
+			
+			return jsonInString;
+
+		} catch (JsonGenerationException e) {
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+		
 	}
 
 }
