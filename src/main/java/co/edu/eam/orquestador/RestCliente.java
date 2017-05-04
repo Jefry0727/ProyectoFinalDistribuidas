@@ -21,17 +21,24 @@ public class RestCliente {
 	public void servicioCrearCliente(ClienteCRM objeto) {
 
 		try {
-
+			/*
+			 * Conexion al servicio rest
+			 */
 			ClientRequest request = new ClientRequest("http://104.155.149.197:8090/tienda/espocrm/createCustomer");
 			request.accept("application/json");
 			
-			
+			/*
+			 * Se envia el objeto para transformarlo en JSON
+			 */
 			String input = createObjectToJson(objeto);
 			
+			/*
+			 * Se envia el JSON al servicio por POST
+			 */
 			request.body("application/json", input);
-			
-
 			ClientResponse<String> response = request.post(String.class);
+			
+			System.out.println(response);
 
 			if (response.getStatus() != 201) {
 				throw new RuntimeException("Failed : HTTP error code : " + response.getStatus());

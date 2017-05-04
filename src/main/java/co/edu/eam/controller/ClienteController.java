@@ -6,6 +6,7 @@ import co.edu.eam.dto.ContactoDTO;
 import co.edu.eam.dto.IdentificacionDTO;
 import co.edu.eam.dto.PersonaDTO;
 import co.edu.eam.dto.UbicacionDTO;
+import co.edu.eam.orquestador.RestCliente;
 
 public class ClienteController {
 
@@ -65,6 +66,10 @@ public class ClienteController {
 		ClienteCRM cliente = new ClienteCRM();
 
 		cliente.setCliente(clienteDto);
+		
+		RestCliente servicio = new RestCliente();
+		
+		servicio.createObjectToJson(cliente);
 
 	}
 

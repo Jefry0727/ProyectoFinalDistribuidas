@@ -21,8 +21,10 @@ public class App
 {
     public static void main( String[] args )
     {
-    	App obj = new App();
-		obj.run();
+    	
+    	
+//    	App obj = new App();
+//		obj.run();
     }
     
     private void run() {
