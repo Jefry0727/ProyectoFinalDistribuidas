@@ -7,20 +7,26 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import co.edu.eam.dto.ClienteDTO;
+import co.edu.eam.dto.PersonaDTO;
+
 
 
 public class Prueba {
 	
 	@JsonProperty("name")
-	String nombre;
+	private String nombre;
 	@JsonProperty("age")
-	int edad;
+	private int edad;
 	@JsonProperty("position")
-	String posicion;
+	private String posicion;
 	@JsonProperty("salary")
-	BigDecimal salario;
+	private BigDecimal salario;
 	@JsonProperty("skills")
-	List<String> habilidades = new ArrayList<String>();
+	private List<String> habilidades = new ArrayList<String>();
+	
+	@JsonProperty("personal")
+	private PersonaDTO persona;
 	
 	public String getNombre() {
 		return nombre;
@@ -60,6 +66,20 @@ public class Prueba {
 	
 	public void setHabilidades(List<String> habilidades) {
 		this.habilidades = habilidades;
+	}
+
+	/**
+	 * @return the persona
+	 */
+	public PersonaDTO getPersona() {
+		return persona;
+	}
+
+	/**
+	 * @param persona the persona to set
+	 */
+	public void setPersona(PersonaDTO persona) {
+		this.persona = persona;
 	}
 
 	

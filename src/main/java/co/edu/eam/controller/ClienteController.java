@@ -72,7 +72,8 @@ public class ClienteController {
 		 */
 		RestCliente servicio = new RestCliente();
 		
-		servicio.servicioCrearCliente(cliente);
+		//servicio.servicioCrearCliente(cliente);
+		servicio.prueba();
 		
 	
 

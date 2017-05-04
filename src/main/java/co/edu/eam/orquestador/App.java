@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import co.edu.eam.controller.ClienteController;
 import co.edu.eam.dto.ClienteCRM;
 import co.edu.eam.model.Prueba;
+import co.edu.eam.model.PruebaPadre;
 
 /**
  * Hello world!
@@ -26,7 +27,7 @@ public class App
     	ClienteController c = new ClienteController();
     	c.crearCliente("4532242", "CC", "carolina", "lopez", "F", "28", "dfdf33@hotmail.com", "3214545363", "Colombia", "Quindío", "Armenia", "Clle 13");
 //    	App obj = new App();
-//		obj.run();
+//		obj.run2();
     }
     
     private void run() {
@@ -77,9 +78,10 @@ public class App
 //			System.out.println(staff);
 
 			// Convert JSON string to Object
-			String jsonInString = "{\"name\":\"mkyong\",\"salary\":7500,\"skills\":[\"java\",\"python\"]}";
-			Prueba staff1 = mapper.readValue(jsonInString, Prueba.class);
-			System.out.println(staff1.getNombre() +" "+ staff1.getEdad()+" "+ staff1.getPosicion()+" "+staff1.getHabilidades()+" "+staff1.getSalario());
+			String jsonInString = "{ \"test\": {\"name\":\"mkyong\",\"salary\":7500,\"skills\":[\"java\",\"python\"], \"personal\": {        \"firstName\": \"maria\",        \"lastName\": \"Cano\",        \"sex\": \"F\"      }}}";
+			PruebaPadre staff1 = mapper.readValue(jsonInString, PruebaPadre.class);
+			System.out.println(jsonInString);
+			System.out.println(staff1.getPrueba() );
 
 			//Pretty print
 			String prettyStaff1 = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(staff1);
