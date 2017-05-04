@@ -38,9 +38,9 @@ public class RestCliente {
 			request.body("application/json", input);
 			ClientResponse<String> response = request.post(String.class);
 			
-			System.out.println(response);
-
-			if (response.getStatus() != 201) {
+			System.out.println("Respuesta ....");
+		
+			if (response.getStatus() != 200) {
 				throw new RuntimeException("Failed : HTTP error code : " + response.getStatus());
 			}
 
@@ -48,10 +48,20 @@ public class RestCliente {
 					new InputStreamReader(new ByteArrayInputStream(response.getEntity().getBytes())));
 
 			String output;
+			String output2 = "";
 			System.out.println("Output from Server .... \n");
+			
+			
+			
 			while ((output = br.readLine()) != null) {
+				
+				output2 += output;
 				System.out.println(output);
 			}
+			String cadenaEjemplo = "{  \"code\": \"200\",  \"status\": \"Ok\",  \"response\": {    \"customer\": {      \"personal\": {        \"firstName\": \"maria\",        \"lastName\": \"Cano\",        \"sex\": \"F\"      },      \"social\": {        \"mail\": [          \"46gdd@hotmail.com\"        ],        \"cellNumber\": [          \"3214563363\"        ]      },      \"localization\": {        \"country\": \"Colombia\",        \"state\": \"Quindío\",        \"city\": \"Armenia\",        \"addressStreet\": \"Clle 13\"      },      \"ids\": {        \"id\": \"590aaed5d4b89d9f9\"      }    }  }}";
+			System.out.println("ToString");
+			System.out.println((output2.split("\"response\":"))[1]);
+			
 
 		} catch (MalformedURLException e) {
 

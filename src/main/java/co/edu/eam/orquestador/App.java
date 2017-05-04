@@ -10,6 +10,7 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import co.edu.eam.controller.ClienteController;
 import co.edu.eam.dto.ClienteCRM;
 import co.edu.eam.model.Prueba;
 
@@ -22,7 +23,8 @@ public class App
     public static void main( String[] args )
     {
     	
-    	
+    	ClienteController c = new ClienteController();
+    	c.crearCliente("4532242", "CC", "carolina", "lopez", "F", "28", "dfdf33@hotmail.com", "3214545363", "Colombia", "Quindío", "Armenia", "Clle 13");
 //    	App obj = new App();
 //		obj.run();
     }

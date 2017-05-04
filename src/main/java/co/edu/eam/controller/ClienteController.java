@@ -67,9 +67,14 @@ public class ClienteController {
 
 		cliente.setCliente(clienteDto);
 		
+		/*
+		 * Llama el Controlador que invoca el servicio
+		 */
 		RestCliente servicio = new RestCliente();
 		
-		servicio.createObjectToJson(cliente);
+		servicio.servicioCrearCliente(cliente);
+		
+	
 
 	}
 
