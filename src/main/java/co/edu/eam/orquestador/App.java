@@ -25,7 +25,9 @@ public class App
     {
     	
     	ClienteController c = new ClienteController();
-    	c.crearCliente("4532242", "CC", "carolina", "lopez", "F", "28", "dfdf33@hotmail.com", "3214545363", "Colombia", "Quindío", "Armenia", "Clle 13");
+    	//590bf872a92aceb86 , 590aaed5d4b89d9f9
+    	c.buscarCliente("590bf872a92aceb86");
+    	//c.crearCliente("2323232", "CC", "Alvaro Andres", "Giraldo", "M", "28", "dfr34@hotmail.com", "3214457363", "Colombia", "Quindío", "Armenia", "Clle 13");
 //    	App obj = new App();
 //		obj.run2();
     }

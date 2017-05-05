@@ -9,6 +9,8 @@ import co.edu.eam.dto.UbicacionDTO;
 import co.edu.eam.orquestador.RestCliente;
 
 public class ClienteController {
+	
+	RestCliente servicio = new RestCliente();
 
 	public void crearCliente(String numero, String tipoDocumento, String nombres, String apellido, String genero,
 			String edad, String correo, String telefono, String pais, String departamento, String ciudad,
@@ -70,13 +72,18 @@ public class ClienteController {
 		/*
 		 * Llama el Controlador que invoca el servicio
 		 */
-		RestCliente servicio = new RestCliente();
 		
-		//servicio.servicioCrearCliente(cliente);
-		servicio.prueba();
 		
+		servicio.servicioCrearCliente(cliente);
+		//servicio.prueba();
+		
+	}
 	
-
+	
+	public void buscarCliente(String id){
+		
+		servicio.servicioGet(id);
+		
 	}
 
 }
