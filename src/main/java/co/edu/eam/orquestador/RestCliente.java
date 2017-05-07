@@ -15,7 +15,9 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import co.edu.eam.dto.ClienteCRM;
+import co.edu.eam.dto.PagosPayu;
 import co.edu.eam.dto.ProductoAmz;
+import co.edu.eam.dto.ProductosAmz;
 import co.edu.eam.model.Prueba;
 
 public class RestCliente {
@@ -54,7 +56,7 @@ public class RestCliente {
 	 */
 	public void servicioBuscarClientes(String id){
 		
-		String output = servicioGet("http://104.155.149.197:8090/tienda/espocrm/searchCustomer/" + id);
+		String output = servicioGet("http://104.155.149.197:8090/tienda/espocrm/searchCustomer/" + id,"1");
 		
 		ClienteCRM respuesta = (ClienteCRM) createJsonToObject(output, new ClienteCRM());
 
@@ -64,7 +66,7 @@ public class RestCliente {
 	
 	/**
 	 * 
-	 * <p><b> Invoca al servicio de Amazon para buscar un producto </b></p><br/>
+	 * <p><b> Invoca al servicio de Amazon para buscar un producto por id </b></p><br/>
 	 * <ul><li></li></ul><br/>
 	 * @author EAM <br/>
 	 *         Jefry Londoño Acosta <br/>
@@ -75,21 +77,51 @@ public class RestCliente {
 	 */
 	public void servicioBuscarProducto(String id){
 		
-		String output = servicioGet("http://104.155.149.197:8090/tienda/amazon/searchProduct/" + id);
+		String output = servicioGet("http://104.155.149.197:8090/tienda/amazon/searchProduct/" + id, "1");
 		
 		ProductoAmz respuesta = (ProductoAmz) createJsonToObject(output, new ProductoAmz());
 		
-		System.out.println(respuesta.getProducto().getDescripcion().getNombre());
+		//System.out.println(respuesta.getProducto().getDescripcion().getNombre());
 		
 	}
 	
-	public void servicioBuscarProductoNombre(String nombreProducto){
+	/**
+	 * 
+	 * <p><b> Invoca al servicio de Amazon para buscar un producto por nombre </b></p><br/>
+	 * <ul><li></li></ul><br/>
+	 * @author EAM <br/>
+	 *         Jefry Londoño Acosta <br/>
+	 *         Email: jjmb2789@gmail.com <br/>
+	 *         5/05/2017
+	 * @version 1.0
+	 * @param nombreProducto
+	 */
+	public void servicioBuscarProductoNombre(String nombreProducto, String tipo){
 		
-		String output = servicioGet("http://104.155.149.197:8090/tienda/amazon/searchAll/" + nombreProducto);
+		String output = servicioGet("http://104.155.149.197:8090/tienda/amazon/searchAll/" + nombreProducto, tipo);
 		
-		ProductoAmz respuesta = (ProductoAmz) createJsonToObject(output, new ProductoAmz());
+		ProductosAmz respuesta = (ProductosAmz) createJsonToObject(output, new ProductosAmz());
 		
-		System.out.println(respuesta.getProductos().get(0).getDescripcion().getNombre());
+		System.out.println(respuesta.getProductos().get(0).getProducto().getDescripcion().getMarca());
+		
+	}
+	
+	/**
+	 * 
+	 * <p><b> Invoca al servicio de PAYU para generar un pago </b></p><br/>
+	 * <ul><li></li></ul><br/>
+	 * @author EAM <br/>
+	 *         Jefry Londoño Acosta <br/>
+	 *         Email: jjmb2789@gmail.com <br/>
+	 *         6/05/2017
+	 * @version 1.0
+	 * @param objeto
+	 */
+	public void servicioRealizarPago(PagosPayu objeto){
+		
+		String output = servicioPost("http://104.155.149.197:8090/tienda/payu/payment" , objeto);
+		
+		ProductosAmz respuesta = (ProductosAmz) createJsonToObject(output, new ProductosAmz());
 		
 	}
 
@@ -153,7 +185,7 @@ public class RestCliente {
 			/*
 			 * Parte la cadena JSON que es la respuesta del servicio POST
 			 */
-			outputAuxiliar = organizarCadena(outputAuxiliar);
+			outputAuxiliar = organizarCadena(outputAuxiliar,"1");
 
 			System.out.println(outputAuxiliar);
 			
@@ -190,7 +222,7 @@ public class RestCliente {
 	 * @version 1.0
 	 * @param urlRequest
 	 */
-	public String servicioGet(String urlRequest) {
+	public String servicioGet(String urlRequest,String tipo) {
 
 		try {
 
@@ -220,7 +252,10 @@ public class RestCliente {
 			/*
 			 * Parte la cadena para obtener solo el objeto
 			 */
-			outputAuxiliar = organizarCadena(outputAuxiliar);
+			outputAuxiliar = organizarCadena(outputAuxiliar, tipo);
+			
+			System.out.println("organizar cadena");
+			System.out.println(outputAuxiliar);
 
 			return outputAuxiliar;
 
@@ -260,13 +295,19 @@ public class RestCliente {
 	 * @version 1.0
 	 * @param outputAuxiliar
 	 */
-	public String organizarCadena(String outputAuxiliar) {
+	public String organizarCadena(String outputAuxiliar, String tipo) {
 
 		outputAuxiliar = ((outputAuxiliar.split("\"response\":"))[1]).substring(0,
 				((outputAuxiliar.split("\"response\":"))[1]).length() - 1);
+		
+		if(tipo.equals("1")){
+			
+			outputAuxiliar = outputAuxiliar.replaceAll("\\[", " ");
+			outputAuxiliar = outputAuxiliar.replaceAll("\\]", " ");
+			
+		}
 
-		outputAuxiliar = outputAuxiliar.replaceAll("\\[", " ");
-		outputAuxiliar = outputAuxiliar.replaceAll("\\]", " ");
+		
 
 		return outputAuxiliar;
 

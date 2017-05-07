@@ -11,9 +11,9 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import co.edu.eam.controller.ClienteController;
+import co.edu.eam.controller.ProductoController;
 import co.edu.eam.dto.ClienteCRM;
 import co.edu.eam.model.Prueba;
-import co.edu.eam.model.PruebaPadre;
 
 /**
  * Hello world!
@@ -25,9 +25,12 @@ public class App
     {
     	
     	ClienteController c = new ClienteController();
-    	//590bf872a92aceb86 , 590aaed5d4b89d9f9
-    	c.buscarCliente("590bf872a92aceb86");
-    	//c.crearCliente("2323232", "CC", "Alvaro Andres", "Giraldo", "M", "28", "dfr34@hotmail.com", "3214457363", "Colombia", "Quindío", "Armenia", "Clle 13");
+    	ProductoController p = new ProductoController();
+    	//590bf872a92aceb86 , 590aaed5d4b89d9f9 , 590d2d223a18d6f6e
+    	//c.buscarCliente("590d2d223a18d6f6e");
+    	//p.buscarProductoPorId("B017B198DA");
+    	p.buscarProductoPorNombre("lego");
+    	//c.crearCliente("455456665", "CC", "Santiago Andres", "Henao", "M", "28", "355646y@hotmail.com", "3214497363", "Colombia", "Quindío", "Armenia", "Clle 13");
 //    	App obj = new App();
 //		obj.run2();
     }
@@ -81,9 +84,9 @@ public class App
 
 			// Convert JSON string to Object
 			String jsonInString = "{ \"test\": {\"name\":\"mkyong\",\"salary\":7500,\"skills\":[\"java\",\"python\"], \"personal\": {        \"firstName\": \"maria\",        \"lastName\": \"Cano\",        \"sex\": \"F\"      }}}";
-			PruebaPadre staff1 = mapper.readValue(jsonInString, PruebaPadre.class);
+			Prueba staff1 = mapper.readValue(jsonInString, Prueba.class);
 			System.out.println(jsonInString);
-			System.out.println(staff1.getPrueba() );
+			System.out.println(staff1.getNombre() );
 
 			//Pretty print
 			String prettyStaff1 = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(staff1);

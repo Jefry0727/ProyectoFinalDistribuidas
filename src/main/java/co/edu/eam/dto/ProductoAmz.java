@@ -17,8 +17,7 @@ public class ProductoAmz {
 	@JsonProperty("product")
 	private ProductoDTO producto;
 	
-	@JsonProperty("products")
-	private  List<ProductoDTO> productos;
+	
 
 	/**
 	 * @return the producto
@@ -34,19 +33,7 @@ public class ProductoAmz {
 		this.producto = producto;
 	}
 
-	/**
-	 * @return the productos
-	 */
-	public List<ProductoDTO> getProductos() {
-		return productos;
-	}
-
-	/**
-	 * @param productos the productos to set
-	 */
-	public void setProductos(List<ProductoDTO> productos) {
-		this.productos = productos;
-	}
+	
 	
 	
 

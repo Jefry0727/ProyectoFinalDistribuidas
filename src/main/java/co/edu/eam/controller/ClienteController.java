@@ -74,7 +74,7 @@ public class ClienteController {
 		 */
 		
 		
-		servicio.servicioCrearCliente(cliente);
+		servicio.servicioCrearClientes(cliente);
 		//servicio.prueba();
 		
 	}
@@ -82,7 +82,7 @@ public class ClienteController {
 	
 	public void buscarCliente(String id){
 		
-		servicio.servicioGet(id);
+		servicio.servicioBuscarClientes(id);
 		
 	}
 
