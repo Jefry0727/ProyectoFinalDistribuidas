@@ -20,6 +20,12 @@ public class PagoDTO {
 	
 	@JsonProperty("customer")
 	private ClienteDTO cliente;
+	
+	@JsonProperty("operacionId")
+	private String id_operacion;
+	
+	@JsonProperty("state")
+	private String estado;
 
 	/**
 	 * @return the valor
@@ -61,6 +67,34 @@ public class PagoDTO {
 	 */
 	public void setCliente(ClienteDTO cliente) {
 		this.cliente = cliente;
+	}
+
+	/**
+	 * @return the id_operacion
+	 */
+	public String getId_operacion() {
+		return id_operacion;
+	}
+
+	/**
+	 * @param id_operacion the id_operacion to set
+	 */
+	public void setId_operacion(String id_operacion) {
+		this.id_operacion = id_operacion;
+	}
+
+	/**
+	 * @return the estado
+	 */
+	public String getEstado() {
+		return estado;
+	}
+
+	/**
+	 * @param estado the estado to set
+	 */
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 	
 	

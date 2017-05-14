@@ -14,7 +14,7 @@ public class PagosPayu {
 	
 	@JsonProperty("payment")
 	private PagoDTO pagos;
-
+	
 	/**
 	 * @return the pagos
 	 */

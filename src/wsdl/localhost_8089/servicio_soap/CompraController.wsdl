@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://co.edu.eam.ingsoft.distribuidos" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="CompraControllerService" targetNamespace="http://co.edu.eam.ingsoft.distribuidos">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://co.edu.eam.ingsoft.distribuidos" elementFormDefault="unqualified" targetNamespace="http://co.edu.eam.ingsoft.distribuidos" version="1.0">
+
+  <xs:element name="generaId" type="tns:generaId"/>
+
+  <xs:element name="generaIdResponse" type="tns:generaIdResponse"/>
+
+  <xs:element name="operacionCrearCompra" type="tns:operacionCrearCompra"/>
+
+  <xs:element name="operacionCrearCompraResponse" type="tns:operacionCrearCompraResponse"/>
+
+  <xs:complexType name="operacionCrearCompra">
+    <xs:sequence>
+      <xs:element name="id_Cliente" type="xs:int"/>
+      <xs:element name="valor_total" type="xs:double"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="items_compra" type="tns:itemsDTO"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="itemsDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cantidad" type="xs:string"/>
+      <xs:element minOccurs="0" name="idProducto" type="xs:string"/>
+      <xs:element minOccurs="0" name="valorProducto" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="operacionCrearCompraResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="generaId">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="generaIdResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="generaIdResponse">
+    <wsdl:part element="tns:generaIdResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="generaId">
+    <wsdl:part element="tns:generaId" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="operacionCrearCompra">
+    <wsdl:part element="tns:operacionCrearCompra" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="operacionCrearCompraResponse">
+    <wsdl:part element="tns:operacionCrearCompraResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="CompraController">
+    <wsdl:operation name="operacionCrearCompra">
+      <wsdl:input message="tns:operacionCrearCompra" name="operacionCrearCompra">
+    </wsdl:input>
+      <wsdl:output message="tns:operacionCrearCompraResponse" name="operacionCrearCompraResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="generaId">
+      <wsdl:input message="tns:generaId" name="generaId">
+    </wsdl:input>
+      <wsdl:output message="tns:generaIdResponse" name="generaIdResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CompraControllerServiceSoapBinding" type="tns:CompraController">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="operacionCrearCompra">
+      <soap:operation soapAction="crearCompra" style="document"/>
+      <wsdl:input name="operacionCrearCompra">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="operacionCrearCompraResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="generaId">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="generaId">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="generaIdResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CompraControllerService">
+    <wsdl:port binding="tns:CompraControllerServiceSoapBinding" name="CompraCtlPort">
+      <soap:address location="http://localhost:8089/servicio_soap/CompraController"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

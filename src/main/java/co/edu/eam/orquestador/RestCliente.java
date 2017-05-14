@@ -5,6 +5,9 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
+import java.rmi.RemoteException;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 
 import org.apache.http.client.ClientProtocolException;
 import org.jboss.resteasy.client.ClientRequest;
@@ -19,8 +22,72 @@ import co.edu.eam.dto.PagosPayu;
 import co.edu.eam.dto.ProductoAmz;
 import co.edu.eam.dto.ProductosAmz;
 import co.edu.eam.model.Prueba;
+import co.edu.eam.servicesDolar.TCRMServicesInterfaceProxy;
 
 public class RestCliente {
+	
+	
+	 /**
+     * @param args the command line arguments
+     */
+    /**
+     * Valid from and valid to TCRM date format
+     */
+    private final static String _DATE_RESPONSE_FORMAT = "EEE, d MMM yyyy HH:mm:ss Z";
+
+
+    /**
+     * TCRM query value format
+     */
+    private final static String _VALUE_QUERY_FORMAT = "#0.00";
+
+    /**
+     * Web Service end point
+     */
+    private final static String _WEB_SERVICE_URL = "https://www.superfinanciera.gov.co/SuperfinancieraWebServiceTRM/TCRMServicesWebService/TCRMServicesWebService?WSDL";
+    
+    /**
+     * 
+     * <p><b> Servicio que consume el valor del dolar actual </b></p><br/>
+     * <ul><li></li></ul><br/>
+     * @author EAM <br/>
+     *         Jefry Londoño Acosta <br/>
+     *         Email: jjmb2789@gmail.com <br/>
+     *         13/05/2017
+     * @version 1.0
+     */
+    public void servicioDolar(){
+    	
+   	 //
+       // Simple date format declaration
+       SimpleDateFormat simpleDateFormat = new SimpleDateFormat(_DATE_RESPONSE_FORMAT);
+
+       //
+       // Decimal value format declaration
+       DecimalFormat decimalFormat = new DecimalFormat(_VALUE_QUERY_FORMAT);
+
+       TCRMServicesInterfaceProxy proxy = new TCRMServicesInterfaceProxy(_WEB_SERVICE_URL);
+
+       //
+       // Gets the TCRM value for the current date
+       co.edu.eam.servicesDolar.TcrmResponse tcrmResponse = null;
+       try {
+           tcrmResponse = proxy.queryTCRM(null);
+       } catch (RemoteException ex) {
+         
+       	ex.printStackTrace();
+       	
+       }
+
+       System.out.println("Identificador: " + tcrmResponse.getId());
+       System.out.println("TCRM Valida desde: " + simpleDateFormat.format(tcrmResponse.getValidityFrom().getTime()));
+       System.out.println("TCRM Valida hasta: " + simpleDateFormat.format(tcrmResponse.getValidityTo().getTime()));
+       System.out.println("Valor: " + decimalFormat.format(tcrmResponse.getValue()));
+
+   }
+	
+	
+	
 	
 	/**
 	 * 
@@ -121,7 +188,9 @@ public class RestCliente {
 		
 		String output = servicioPost("http://104.155.149.197:8090/tienda/payu/payment" , objeto);
 		
-		ProductosAmz respuesta = (ProductosAmz) createJsonToObject(output, new ProductosAmz());
+		PagosPayu respuesta = (PagosPayu) createJsonToObject(output, new PagosPayu());
+		
+		System.out.println(respuesta.getPagos().getEstado() +" "+ respuesta.getPagos().getId_operacion());
 		
 	}
 

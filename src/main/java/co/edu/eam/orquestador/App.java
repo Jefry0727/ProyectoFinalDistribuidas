@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import co.edu.eam.controller.ClienteController;
+import co.edu.eam.controller.PagoController;
 import co.edu.eam.controller.ProductoController;
 import co.edu.eam.dto.ClienteCRM;
 import co.edu.eam.model.Prueba;
@@ -26,10 +27,16 @@ public class App
     	
     	ClienteController c = new ClienteController();
     	ProductoController p = new ProductoController();
+    	PagoController pa = new PagoController();
+    	//RestSevicioDolar sd = new RestSevicioDolar();
+    	
+    //	sd.servicioDolar();
     	//590bf872a92aceb86 , 590aaed5d4b89d9f9 , 590d2d223a18d6f6e
     	//c.buscarCliente("590d2d223a18d6f6e");
     	//p.buscarProductoPorId("B017B198DA");
-    	p.buscarProductoPorNombre("lego");
+    	//pa.realizarPago("355646y@hotmail.com", "3214497363", "590d2d223a18d6f6e", "455456665", "CC", "Henao", "28", "Santiago Andres", "M", "Armenia", "Quindío", "Clle 13", "Colombia", "CO", "581", "2018/10", "VISA", "APPROVED", "4869398635648702", 20000);
+    	//p.buscarProductoPorNombre("lego");
+    	
     	//c.crearCliente("455456665", "CC", "Santiago Andres", "Henao", "M", "28", "355646y@hotmail.com", "3214497363", "Colombia", "Quindío", "Armenia", "Clle 13");
 //    	App obj = new App();
 //		obj.run2();
