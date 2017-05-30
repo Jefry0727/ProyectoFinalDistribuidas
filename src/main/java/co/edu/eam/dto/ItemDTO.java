@@ -12,9 +12,9 @@ public class ItemDTO {
 
 	private String cantidad;
 
-	private String idProducto;
+	private String id;
 
-	private String valorProducto;
+	private String valor;
 
 	/**
 	 * @return the cantidad
@@ -33,29 +33,29 @@ public class ItemDTO {
 	/**
 	 * @return the idProducto
 	 */
-	public String getIdProducto() {
-		return idProducto;
+	public String getId() {
+		return id;
 	}
 
 	/**
 	 * @param idProducto the idProducto to set
 	 */
-	public void setIdProducto(String idProducto) {
-		this.idProducto = idProducto;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	/**
 	 * @return the valorProducto
 	 */
-	public String getValorProducto() {
-		return valorProducto;
+	public String getValor() {
+		return valor;
 	}
 
 	/**
 	 * @param valorProducto the valorProducto to set
 	 */
-	public void setValorProducto(String valorProducto) {
-		this.valorProducto = valorProducto;
+	public void setValor(String valorProducto) {
+		this.valor = valorProducto;
 	}
 
 	

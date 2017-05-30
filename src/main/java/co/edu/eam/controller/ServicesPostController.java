@@ -147,6 +147,9 @@ public class ServicesPostController {
 	public boolean servicioPostCompra(int idCliente, double valorTotal, List<ItemDTO> itemsCompra) throws Exception{
 		
 		System.out.println("entra al post compra");
+		
+		itemsCompra.remove(0);
+		
 		List<ItemsDTO> items = new ArrayList<>();
 		
 		for (ItemDTO itemDTO : itemsCompra) {
@@ -154,8 +157,8 @@ public class ServicesPostController {
 			ItemsDTO item = new ItemsDTO();
 			
 			item.setCantidad(itemDTO.getCantidad());
-			item.setIdProducto(itemDTO.getIdProducto());
-			item.setValorProducto(itemDTO.getValorProducto());
+			item.setIdProducto(itemDTO.getId());
+			item.setValorProducto(itemDTO.getValor());
 			
 			items.add(item);
 			

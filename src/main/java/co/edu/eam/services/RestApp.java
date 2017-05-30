@@ -303,35 +303,45 @@ public class RestApp {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/realizarPago")
 	public Response restPago(PaymentDTO pago) {
-
+		
+		Response respuesta = new Response();
+		
+		try {
+			
 		Clientes cliente = pago.getCliente();
 		Tarjeta tarjeta = pago.getTarjeta();
 		
 		System.out.println(pago.getCliente().getApellido());
-		System.out.println(pago.getItemsCompra().size());
-		System.out.println(pago.getTarjeta().getNombreTarjeta());
-		System.out.println("valor");
-		System.out.println(tarjeta.getValor());
-		
-		Response respuesta = new Response();
-		
-		respuesta.setRespuesta("OK");
-		
-		//
 
-		 try {
-			pagoController.realizarPago(cliente.getCorreo(), cliente.getTelefono(),cliente.getIdCrm(), cliente.getId(),
+
+		 
+			boolean result = pagoController.realizarPago(cliente.getCorreo(), cliente.getTelefono(),cliente.getIdCrm(), cliente.getId(),
 					cliente.getNumero(), cliente.getTipoDocumento(), cliente.getApellido(), cliente.getEdad(),
 					cliente.getNombres(), cliente.getGenero(), cliente.getCiudad(), cliente.getCiudad(),
 					cliente.getDireccion(), cliente.getPais(), tarjeta.getCiudadTarjeta(), tarjeta.getCodigoSeguridad(),
 					tarjeta.getFechaVencimiento(), tarjeta.getMetodoPago(), tarjeta.getNombreTarjeta(),
 					tarjeta.getNumeroTarjeta(), tarjeta.getValor(), pago.getItemsCompra());
+			
+			if(result){
+				
+				respuesta.setRespuesta("OK");
+				
+			}else{
+				
+				respuesta.setRespuesta("ERROR");
+				
+			}
+			
+			return respuesta;
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			
+			return null;
 		}
 		 
-		 return respuesta;
+		 
 
 	}
 
