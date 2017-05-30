@@ -8,8 +8,9 @@ package co.edu.eam.model;
  * @12/05/2017
  * @version 
  */
-public class Cliente {
+public class Clientes {
 	
+	private String idCrm;
 	private String id;
 	private String numero;
 	private String tipoDocumento;
@@ -170,6 +171,18 @@ public class Cliente {
 	/**
 	 * @return the id
 	 */
+	public String getIdCrm() {
+		return idCrm;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setIdCrm(String id) {
+		this.idCrm = id;
+	}
+	/**
+	 * @return the id
+	 */
 	public String getId() {
 		return id;
 	}
@@ -179,6 +192,8 @@ public class Cliente {
 	public void setId(String id) {
 		this.id = id;
 	}
+	
+	
 	
 	
 }

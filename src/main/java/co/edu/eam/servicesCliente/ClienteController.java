@@ -27,13 +27,13 @@ public interface ClienteController {
      * 
      * @param cliente
      * @return
-     *     returns boolean
+     *     returns java.lang.String
      */
     @WebMethod(action = "crearCliente")
     @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "operacionCrear", targetNamespace = "http://co.edu.eam.ingsoft.distribuidos", className = "distribuidos.ingsoft.eam.edu.co.OperacionCrear")
     @ResponseWrapper(localName = "operacionCrearResponse", targetNamespace = "http://co.edu.eam.ingsoft.distribuidos", className = "distribuidos.ingsoft.eam.edu.co.OperacionCrearResponse")
-    public boolean operacionCrear(
+    public String operacionCrear(
         @WebParam(name = "cliente", targetNamespace = "")
         Cliente cliente);
 

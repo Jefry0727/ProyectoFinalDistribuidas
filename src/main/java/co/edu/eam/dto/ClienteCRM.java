@@ -6,6 +6,8 @@ public class ClienteCRM {
 	
 	@JsonProperty("customer")
 	private ClienteDTO cliente;
+	
+	private int id;
 
 	/**
 	 * @return the cliente
@@ -19,6 +21,20 @@ public class ClienteCRM {
 	 */
 	public void setCliente(ClienteDTO cliente) {
 		this.cliente = cliente;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	

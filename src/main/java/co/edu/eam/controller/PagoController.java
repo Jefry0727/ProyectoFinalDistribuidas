@@ -3,10 +3,13 @@
  */
 package co.edu.eam.controller;
 
+import java.util.LinkedList;
+
 import co.edu.eam.dto.ClienteDTO;
 import co.edu.eam.dto.ContactoDTO;
 import co.edu.eam.dto.IdDTO;
 import co.edu.eam.dto.IdentificacionDTO;
+import co.edu.eam.dto.ItemDTO;
 import co.edu.eam.dto.PagoDTO;
 import co.edu.eam.dto.PagosPayu;
 import co.edu.eam.dto.PersonaDTO;
@@ -15,6 +18,7 @@ import co.edu.eam.dto.UbicacionDTO;
 import co.edu.eam.dto.ValorDTO;
 import co.edu.eam.orquestador.RestCliente;
 
+
 /**
  * @author Jefry Londoño <jjmb2789@gmail.com> @6/05/2017
  * @version
@@ -22,6 +26,8 @@ import co.edu.eam.orquestador.RestCliente;
 public class PagoController {
 
 	RestCliente servicio = new RestCliente();
+	
+	ServicesPostController post = new ServicesPostController();
 	
 	/**
 	 * 
@@ -53,10 +59,10 @@ public class PagoController {
 	 * @param numeroTarjeta
 	 * @param valor
 	 */
-	public void realizarPago(String correo, String telefono, String id, String numero_documento, String tipoDocumento,
+	public boolean realizarPago(String correo, String telefono,String idCrm, String id, String numero_documento, String tipoDocumento,
 			String apellido, String edad, String nombres, String genero, String ciudad, String departamento,
 			String direccion, String pais, String ciudadTarjeta, String codigoSeguridad, String fechaVencimiento,
-			String metodoPago, String nombreTarjeta, String numeroTarjeta, int valor) {
+			String metodoPago, String nombreTarjeta, String numeroTarjeta, double valor,LinkedList<ItemDTO>itemsCompra) throws Exception{
 
 		PagosPayu pagos = new PagosPayu();
 
@@ -68,7 +74,7 @@ public class PagoController {
 		contacto.setTelefono(telefono);
 
 		IdDTO idDto = new IdDTO();
-		idDto.setId(id);
+		idDto.setId(idCrm);
 
 		/*
 		 * Se crea la IdentificacionDTO
@@ -123,7 +129,13 @@ public class PagoController {
 		
 		ValorDTO valorDto = new ValorDTO();
 		
-		valorDto.setValor(valor);
+		System.out.println(valor);
+		
+		int aux = (int) valor;
+		
+		System.out.println(aux);
+		
+		valorDto.setValor(aux);
 
 		/*
 		 * Se crea el PagoDTO
@@ -137,8 +149,36 @@ public class PagoController {
 
 		pagos.setPagos(pagodto);
 
-		servicio.servicioRealizarPago(pagos);
+		PagosPayu respuesta = servicio.servicioRealizarPago(pagos);
+		
+		System.out.println("Estado de pago.....");
+		
+		System.out.println(respuesta.getPagos().getEstado());
+		
+		if(respuesta != null){
+			
+			return validarCompra(respuesta, id, valor, itemsCompra);
+			
+		}
+		
+		return false;
+		
 
+	}
+	
+	
+	
+	public boolean validarCompra(PagosPayu pago, String idCliente, double valorTotal,LinkedList<ItemDTO>itemsCompra) throws Exception{
+		//DECLINED 
+		if(pago.getPagos().getEstado().equals("APPROVED")){
+			
+			return post.servicioPostCompra(Integer.parseInt(idCliente), valorTotal, itemsCompra);
+			
+		}
+		
+		return false;
+		
+		
 	}
 
 }

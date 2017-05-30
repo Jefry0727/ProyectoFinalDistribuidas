@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "operacionBuscar", propOrder = {
+@XmlType(name = "operacionBusca", propOrder = {
     "cedula"
 })
 public class OperacionBuscar {
